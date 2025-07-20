@@ -48,7 +48,7 @@ test('@regression RT004: Validate course names are displayed',async({page})=>{
     }
     console.log(courseLists);
 })
-test.only('@regression RT005: Validate course ratings and duration',async({page})=>{
+test('@regression RT005: Validate course ratings and duration',async({page})=>{
     await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
@@ -61,6 +61,7 @@ test.only('@regression RT005: Validate course ratings and duration',async({page}
    }
 })
 test('@regression RT006: Extract all languages',async({page})=>{
+    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
 
 })
 // test.fixme('@regression RT007: Extract all learning level',async({page})=>{
