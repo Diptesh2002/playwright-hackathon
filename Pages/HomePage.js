@@ -18,5 +18,8 @@ export class HomePage{
         await link.click();
         await this.page.waitForLoadState('domcontentloaded');
     }
+    async login(){
+        
+    }
 
 }

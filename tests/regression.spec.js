@@ -46,6 +46,7 @@ test('@regression RT004: Validate course names are displayed',async({page})=>{
     for(let i=0;i<courseLists.length;i++){
          expect(courseLists[i].name).not.toBeNull();
     }
+    await fs.writeFileSync('output/courselist.json', JSON.stringify(courseLists, null, 2));
     console.log(courseLists);
 })
 test('@regression RT005: Validate course ratings and duration',async({page})=>{
@@ -62,9 +63,22 @@ test('@regression RT005: Validate course ratings and duration',async({page})=>{
 })
 test('@regression RT006: Extract all languages',async({page})=>{
     await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
-
+    let home=new HomePage(page);
+    await home.SearchCourses(Searchdata['search-text']);
+    let course=new CoursesPage(page);
+    let languageLists=await course.fetchAllLanguage();
+    await expect(languageLists.length).toBeGreaterThan(20);
+    await fs.writeFileSync('output/languagelist.json', JSON.stringify(languageLists, null, 2));
+    console.log(languageLists);
 })
-// test.fixme('@regression RT007: Extract all learning level',async({page})=>{
-
-// })
+test('@regression RT007: Extract all learning level',async({page})=>{
+    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
+    let home=new HomePage(page);
+    await home.SearchCourses(Searchdata['search-text']);
+    let course=new CoursesPage(page);
+    let levelList=course.fetchAllLevel();
+    await expect(levelList.length).toBe(4);
+    await fs.writeFileSync('output/levellist.json', JSON.stringify(levelList, null, 2));
+    console.log(levelList);
+})
 // test.fixme('@regression RT008:')

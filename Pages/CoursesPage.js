@@ -1,5 +1,3 @@
-import { expect } from "@playwright/test";
-
 export class CoursesPage{
     constructor(page){
         this.page=page;
@@ -16,7 +14,6 @@ export class CoursesPage{
         await this.page.click(this.buttonTOShowAllLanguage);
         await this.page.waitForTimeout(3000);
         let languagelists=await this.page.$$(this.languageLists);
-        await this
         let languageArray=[];
         for(let i=0;i<languagelists.length;i++){
         const locator=await this.page.locator(this.languageLists).nth(i);
@@ -27,7 +24,6 @@ export class CoursesPage{
            await locator.click();
         }
      }
-     console.log(languageArray);
      return languageArray;
     }
     async selectLevel(level){
@@ -42,14 +38,13 @@ export class CoursesPage{
                 await locator.click();
             }
         }
-        console.log(levelArray);
         return levelArray;
     }
 
     async cousrseDetails(number){
         await this.page.waitForLoadState('load');
         let cousrseDetailsArray=[];
-        let courseLists=await this.page.$$(this.courseBlocks);
+        //let courseLists=await this.page.$$(this.courseBlocks);
         let nameList=await this.page.$$(this.courseNames);
         let ratingsList=await this.page.$$(this.ratings);
         let durationsList=await this.page.$$(this.durations);
@@ -65,4 +60,26 @@ export class CoursesPage{
     async backToHome(){
         await this.page.goBack();
     }
+    async fetchAllLanguage(){
+        await this.page.click(this.buttonTOShowAllLanguage);
+        await this.page.waitForTimeout(3000);
+        let languagelists=await this.page.$$(this.languageLists);
+        let languageArray=[];
+        for(let i=0;i<languagelists.length;i++){
+            const locator=await this.page.locator(this.languageLists).nth(i);
+            let languageName=await languagelists[i].textContent();
+                languageArray.push(languageName)
+         }
+         return languageArray;
+    }
+    async fetchAllLevel(){
+        let levels=await this.page.$$(this.levelList);
+        let levelArray=[];
+        for(let i=0;i<levels.length;i++){
+            let levelName=await levels[i].textContent();
+                levelArray.push(levelName);
+        }
+        return levelArray;
+    }
+
 }
