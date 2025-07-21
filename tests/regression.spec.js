@@ -61,7 +61,7 @@ test('@regression RT005: Validate course ratings and duration',async({page})=>{
         expect(parseFloat(courseLists[i].rating)).toBeLessThan(5);
    }
 })
-test.only('@regression RT006: Extract all languages',async({page})=>{
+test('@regression RT006: Extract all languages',async({page})=>{
     await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
