@@ -21,7 +21,7 @@ test('@regression RT002: Check valid Form',async({page})=>{
     await page.waitForTimeout(2000);
     await form.scrollToForm();
     await form.validFillForm(formdata);
-    await page.waitForLoadState('load');
+    await page.waitForSelector("(//h1[normalize-space()='Thanks for your interest in Coursera for Business'])[1]",{timeout:30000});
     await expect(page.locator("(//h1[normalize-space()='Thanks for your interest in Coursera for Business'])[1]")).toContainText('Thanks for your interest in Coursera for Business');
 })
 test('@regression RT003: Check Invalid Form',async({page})=>{
@@ -77,7 +77,7 @@ test('@regression RT007: Extract all learning level',async({page})=>{
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
     let course=new CoursesPage(page);
-    await page.waitForLoadState('load');
+    await page.waitForLoadState('domcontentloaded');
     let levelList=await course.fetchAllLevel();
     expect(levelList.length).toBe(4);
     fs.writeFileSync('output/levellist.json', JSON.stringify(levelList, null, 2));

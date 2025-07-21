@@ -23,7 +23,9 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-
+      - name: Create output folder
+        run: mkdir -p output
+      
       - name: Run Playwright tests
         run: npx playwright test
 
