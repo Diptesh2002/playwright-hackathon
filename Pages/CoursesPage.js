@@ -66,7 +66,7 @@ export class CoursesPage{
         let languagelists=await this.page.$$(this.languageLists);
         let languageArray=[];
         for(let i=0;i<languagelists.length;i++){
-            const locator=await this.page.locator(this.languageLists).nth(i);
+            // const locator=await this.page.locator(this.languageLists).nth(i);
             let languageName=await languagelists[i].textContent();
                 languageArray.push(languageName)
          }

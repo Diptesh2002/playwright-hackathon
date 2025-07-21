@@ -2,7 +2,7 @@ import{test,expect} from '@playwright/test'
 import { HomePage } from '../Pages/HomePage'
 import Searchdata from '../test-data/Searchdata.json'
 import { CoursesPage } from '../Pages/CoursesPage';
-
+import fs from 'fs';
 test('@smoke ST001: Should load coursera homepage',async({page})=>{
     await page.goto('/');
     let homepage=new HomePage(page);
