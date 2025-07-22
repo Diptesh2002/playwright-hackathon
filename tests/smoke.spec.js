@@ -68,7 +68,7 @@ test('@smoke ST007: Invalid SignUp password > 72', async({page})=>{
     expect(msg).toContainText('Password must contain between 8 and 72 characters.');
 })
 
-test.only('@smoke ST008: Invalid Email', async({page})=>{
+test('@smoke ST008: Invalid Email', async({page})=>{
     await page.goto('/');
     let homepage=new HomePage(page);
     let email = await homepage.SignUp("Vinay", "123@xyz", "vinay@123");
