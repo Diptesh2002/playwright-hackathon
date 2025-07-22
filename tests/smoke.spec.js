@@ -46,3 +46,11 @@ test('@smoke ST005: Should select both Language and Level',async({page})=>{
     await page.waitForLoadState('load');
     await coursesPage.selectLevel(Searchdata.level);
 });
+
+test('@smoke ST008: Login', async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let invalidMessage = await homepage.login("123@gmail.com","vinay@1");
+    await page.waitForTimeout(5000);
+    await expect(invalidMessage).toContainText("We don't recognize that username or password. You can try again or use another login option.")
+})
