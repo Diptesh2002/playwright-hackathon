@@ -2,7 +2,8 @@ import{test,expect} from '@playwright/test'
 import { HomePage } from '../Pages/HomePage'
 import Searchdata from '../test-data/Searchdata.json'
 import { CoursesPage } from '../Pages/CoursesPage';
-import fs from 'fs';
+import signUpData from '../test-data/signUpdata.json';
+
 test('@smoke ST001: Should load coursera homepage',async({page})=>{
     await page.goto('/');
     let homepage=new HomePage(page);
@@ -35,7 +36,7 @@ test('@smoke ST004: Should select Level',async({page})=>{
     await coursesPage.selectLevel(Searchdata.level);
 })
 
-test('@smoke ST005: Should select both Language and Level',async({page})=>{
+test.only('@smoke ST005: Should select both Language and Level',async({page})=>{
     await page.goto('/');
     let homepage=new HomePage(page);
     await homepage.SearchCourses(Searchdata['search-text']);
@@ -45,4 +46,24 @@ test('@smoke ST005: Should select both Language and Level',async({page})=>{
     await coursesPage.selectLanguage(Searchdata.language);
     await page.waitForLoadState('load');
     await coursesPage.selectLevel(Searchdata.level);
+    await page.pause();
 });
+test('@smoke ST006: Invalid Email SignUp', async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let email = await homepage.SignUp(signUpData.name, signUpData.email.invalid, signUpData.email.valid);
+    await page.waitForTimeout(5000);
+    await expect(email).toContainText('Invalid email. Please enter email as name@email.com');
+})
+test('@smoke ST007: Invalid SignUp password < 8',async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let msg=await homepage.SignUp(signUpData.name,signUpData.email.valid,signUpData.password.LessThan8);
+    expect(msg).toContainText('Password must contain between 8 and 72 characters.');
+})
+test('@smoke ST008: Invalid SignUp password > 72', async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let msg=await homepage.SignUp(signUpData.name,signUpData.email.valid,signUpData.password.GreaterThan72);
+    expect(msg).toContainText('Password must contain between 8 and 72 characters.');
+} )

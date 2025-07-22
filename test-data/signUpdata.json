@@ -1,0 +1,12 @@
+{
+    "name":"Vinay",
+    "email":{
+        "valid":"1234@gmail.com",
+        "invalid":"123@xyz"
+    },
+    "password":{
+        "LessThan8":"vinay@1",
+        "GreaterThan72":"vinay@123456778901234567890123456789012345678901234567890123456789012345678",
+        "Valid":"Vinay@123"
+    }
+}
