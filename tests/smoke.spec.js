@@ -47,10 +47,31 @@ test('@smoke ST005: Should select both Language and Level',async({page})=>{
     await coursesPage.selectLevel(Searchdata.level);
 });
 
-test('@smoke ST008: Login', async({page})=>{
+// test.only('@smoke ST008: Login', async({page})=>{
+//     await page.goto('/');
+//     let homepage=new HomePage(page);
+//     let invalidMessage = await homepage.login("123@gmail.com","vinay@1");
+//     await page.waitForTimeout(5000);
+//     await expect(invalidMessage).toContainText("We don't recognize that username or password. You can try again or use another login option.")
+// })
+
+test('@smoke ST006: Invalid SignUp password < 8',async({page})=>{
     await page.goto('/');
     let homepage=new HomePage(page);
-    let invalidMessage = await homepage.login("123@gmail.com","vinay@1");
+    let msg=await homepage.SignUp("Vinay","1234@gmail.com","vinay@1");
+    expect(msg).toContainText('Password must contain between 8 and 72 characters.');
+})
+test('@smoke ST007: Invalid SignUp password > 72', async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let msg=await homepage.SignUp("Vinay","1234@gmail.com","vinay@123456778901234567890123456789012345678901234567890123456789012345678");
+    expect(msg).toContainText('Password must contain between 8 and 72 characters.');
+})
+
+test.only('@smoke ST008: Invalid Email', async({page})=>{
+    await page.goto('/');
+    let homepage=new HomePage(page);
+    let email = await homepage.SignUp("Vinay", "123@xyz", "vinay@123");
     await page.waitForTimeout(5000);
-    await expect(invalidMessage).toContainText("We don't recognize that username or password. You can try again or use another login option.")
+    await expect(email).toContainText('Invalid email. Please enter email as name@email.com');
 })

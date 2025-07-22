@@ -10,6 +10,13 @@ export class HomePage{
      this.loginButton = "//span[@class='cds-button-label' and text() = 'Log In']";
      this.email = page.getByPlaceholder("name@email.com");
      this.password = page.getByPlaceholder("Enter your password");
+
+     //signup
+     this.signup = "//div/a/span[@class='cds-button-label' and text()='Join for Free']";
+     this.fullName=page.getByPlaceholder("Enter your full name");
+     this.emailId = page.getByPlaceholder("name@email.com");
+     this.password=page.getByPlaceholder("Create password");
+ 
     }
     async navigate(){
         await this.page.goto('/',{timeout:120000, waitUntil: 'domcontentloaded'});
@@ -23,15 +30,25 @@ export class HomePage{
         await link.click();
         await this.page.waitForLoadState('domcontentloaded');
     }
-    async login(email, password){
-        await this.page.click(this.loginButton);
-        await this.email.fill(email);
+    // async login(email, password){
+    //     await this.page.click(this.loginButton);
+    //     await this.email.fill(email);
+    //     await this.password.fill(password);
+    //     await this.page.click("//button[@type='submit']");
+    //     await this.page.waitForTimeout(2000);
+
+    //     const invalidMessageLocator = await this.page.locator("//div[@class='css-q1vc80']");
+    //     return invalidMessageLocator;
+    // }
+
+    async SignUp(name,email,password){
+        await this.page.click(this.signup);
+        await this.fullName.fill(name);
+        await this.emailId.fill(email);
         await this.password.fill(password);
-        await this.page.click("//button[@type='submit']");
+        await this.page.getByRole('button',{name:'Join for Free'}).click();
         await this.page.waitForTimeout(2000);
-
-        const invalidMessageLocator = await this.page.locator("//div[@class='css-q1vc80']");
-        return invalidMessageLocator;
+        const messagelocator = await this.page.locator('//ul[@class="css-dlhdzr"]');
+        return messagelocator;
     }
-
 }
