@@ -5,8 +5,10 @@ import Searchdata from '../test-data/Searchdata.json';
 import { EnterpriseFormPage } from '../Pages/EnterpriseFormPage';
 import formdata from '../test-data/formdata.json'
 import fs from 'fs';
-test('@regression RT001: Check Back is Working or not',async({page})=>{
+test.beforeEach(async({page})=>{
     await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
+})
+test('@regression RT001: Check Back is Working or not',async({page})=>{
    let home=new HomePage(page);
    await home.SearchCourses(Searchdata['search-text']);
    let course=new CoursesPage(page);
@@ -14,7 +16,6 @@ test('@regression RT001: Check Back is Working or not',async({page})=>{
    await expect (page).toHaveURL(/www\.coursera\.org/);
 })
 test('@regression RT002: Check valid Form',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.handleForm();
     let form=new EnterpriseFormPage(page);
@@ -25,7 +26,6 @@ test('@regression RT002: Check valid Form',async({page})=>{
     await expect(page.locator("(//h1[normalize-space()='Thanks for your interest in Coursera for Business'])[1]")).toContainText('Thanks for your interest in Coursera for Business');
 })
 test('@regression RT003: Check Invalid Form',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.handleForm();
     let form=new EnterpriseFormPage(page);
@@ -37,7 +37,6 @@ test('@regression RT003: Check Invalid Form',async({page})=>{
     await expect(page.locator("//div[@id='ValidMsgEmail']")).toContainText('Invalid Input');
 })
 test('@regression RT004: Validate course names are displayed',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
     let course=new CoursesPage(page);
@@ -50,7 +49,6 @@ test('@regression RT004: Validate course names are displayed',async({page})=>{
     console.log(courseLists);
 })
 test('@regression RT005: Validate course ratings and duration',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
     let course=new CoursesPage(page);
@@ -62,7 +60,6 @@ test('@regression RT005: Validate course ratings and duration',async({page})=>{
    }
 })
 test('@regression RT006: Extract all languages',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
     let course=new CoursesPage(page);
@@ -73,7 +70,6 @@ test('@regression RT006: Extract all languages',async({page})=>{
     console.log(languageLists);
 })
 test('@regression RT007: Extract all learning level',async({page})=>{
-    await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
     let home=new HomePage(page);
     await home.SearchCourses(Searchdata['search-text']);
     let course=new CoursesPage(page);
@@ -83,4 +79,3 @@ test('@regression RT007: Extract all learning level',async({page})=>{
     fs.writeFileSync('output/levellist.json', JSON.stringify(levelList, null, 2));
     console.log(levelList);
 })
-// test.fixme('@regression RT008:')
