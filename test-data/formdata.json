@@ -1,0 +1,15 @@
+{
+    "FirstName":"Automation",
+    "LastName":"Practice",
+    "Email":{
+        "Valid":"lodoronit@facebook.in",
+        "Invalid":"abc@123"
+    },
+    "PhoneNumber":"7735078512",
+    "OrganizationType":"Business",
+    "Job_Title":"Software Tester",
+    "CompanyName":"Amazon",
+    "CompanySize":"1-500",
+    "needs":"Learner support",
+    "Country":"Colombia"
+}
