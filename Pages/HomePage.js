@@ -1,3 +1,5 @@
+import { TIMEOUT } from "dns";
+
 export class HomePage{
 
     constructor(page){
@@ -47,6 +49,7 @@ export class HomePage{
         await this.emailId.fill(email);
         await this.password.fill(password);
         await this.page.getByRole('button',{name:'Join for Free'}).click();
+        //await this.page.waitForLoadState('domcontentloaded');
         await this.page.waitForTimeout(2000);
         const messagelocator = await this.page.locator('//ul[@class="css-dlhdzr"]');
         return messagelocator;

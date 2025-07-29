@@ -33,7 +33,7 @@ export class CoursesPage{
             let levelName=await levels[i].textContent();
                 levelArray.push(levelName);
                 levelName=await levelName.toLowerCase();
-            if(levelName.includes(level.toLowerCase())){
+                if(levelName.includes(level.toLowerCase())){
                 const locator=await this.page.locator(this.levelList).nth(i);
                 await locator.click();
             }

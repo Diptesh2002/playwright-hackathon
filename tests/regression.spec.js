@@ -1,10 +1,11 @@
-import {test,expect} from '@playwright/test'
+import {test, expect} from '@playwright/test'
 import { HomePage } from '../Pages/HomePage';
 import { CoursesPage } from '../Pages/CoursesPage';
 import Searchdata from '../test-data/Searchdata.json';
 import { EnterpriseFormPage } from '../Pages/EnterpriseFormPage';
 import formdata from '../test-data/formdata.json'
 import fs from 'fs';
+
 test('@regression RT001: Check Back is Working or not',async({page})=>{
     await page.goto('/',{ waitUntil: 'domcontentloaded', timeout: 60000 });
    let home=new HomePage(page);
@@ -83,4 +84,3 @@ test('@regression RT007: Extract all learning level',async({page})=>{
     fs.writeFileSync('output/levellist.json', JSON.stringify(levelList, null, 2));
     console.log(levelList);
 })
-// test.fixme('@regression RT008:')

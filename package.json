@@ -2,7 +2,11 @@
   "name": "playwrightpractice",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "reg" : "npx playwright test regression.spec.js --headed",
+    "smoke" : "npx playwright test smoke.spec.js --headed",
+    "both" : "npx playwright test regression.spec.js --headed && npx playwright test smoke.spec.js --headed"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
